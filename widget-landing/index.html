@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%237c5cff%22/%3E%3C/svg%3E" />
+    <title>Lumen: move money in one sentence</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- Your keys: copy config.example.js to config.js and fill it in. -->
+    <script src="./config.js"></script>
+
+    <!-- 1. Load the RecoilPay widget once per page. -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@recoilpay/intent-widget@0.5/dist/recoilpay-intent-widget.js"></script>
+  </head>
+  <body>
+    <header class="nav">
+      <span class="logo">Lumen</span>
+      <nav>
+        <a href="#how">How it works</a>
+        <a href="https://docs.recoilpay.com/integrate/widget">Docs</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Example app · testnet</p>
+          <h1>Move money in one sentence.</h1>
+          <p class="lede">
+            Swap across chains, cash out to your bank, or buy crypto with a bank transfer. Type what you want; RecoilPay finds a solver and
+            settles it.
+          </p>
+        </div>
+
+        <!-- 2. Place the widget. Everything except the tag name is optional. -->
+        <recoilpay-intent id="recoilpay" class="hero-widget"></recoilpay-intent>
+      </section>
+
+      <section id="how" class="how">
+        <article>
+          <h2>Swap</h2>
+          <p>Any supported chain to any other. A solver delivers on the destination chain from its own funds.</p>
+        </article>
+        <article>
+          <h2>Cash out</h2>
+          <p>USDC to a Nigerian bank account. Your USDC waits in escrow until you confirm the naira arrived.</p>
+        </article>
+        <article>
+          <h2>Buy</h2>
+          <p>Pay naira by bank transfer, receive USDC. The solver's USDC is locked for you before you're shown where to pay.</p>
+        </article>
+      </section>
+
+      <section class="events">
+        <h2>Events from the widget</h2>
+        <p>What your page can react to: update balances, show a receipt, record a conversion.</p>
+        <pre id="log">(nothing yet)</pre>
+      </section>
+    </main>
+
+    <footer>Example only. Testnet tokens have no value; a bank transfer can be real naira. Built with <a href="https://docs.recoilpay.com">RecoilPay</a>.</footer>
+
+    <script>
+      // 3. Configure it from config.js, and listen for what happens.
+      const widget = document.getElementById('recoilpay');
+      const config = window.RECOILPAY_CONFIG || {};
+      if (config.hfAccessToken) widget.setAttribute('hf-access-token', config.hfAccessToken);
+      if (config.walletConnectProjectId) widget.setAttribute('walletconnect-project-id', config.walletConnectProjectId);
+      if (config.apiUrl) widget.setAttribute('api-url', config.apiUrl);
+      widget.setAttribute('accent', '#7c5cff');
+
+      // Properties (unlike attributes) need the element to be defined first.
+      customElements.whenDefined('recoilpay-intent').then(() => {
+        widget.examples = [
+          { label: 'Swap 1 USDC', sentence: 'swap 1 USDC on OP Sepolia for USDC on Base Sepolia' },
+          { label: 'Cash out 10 USDC', sentence: 'cash out 10 USDC on Base Sepolia to NGN' },
+          { label: 'Buy ₦5,000 of USDC', sentence: 'buy ₦5,000 of USDC on Base Sepolia' },
+        ];
+      });
+
+      const log = document.getElementById('log');
+      const events = [
+        'recoilpay-wallet',
+        'recoilpay-order-submitted',
+        'recoilpay-complete',
+        'recoilpay-error',
+        'recoilpay-cash-out-started',
+        'recoilpay-cash-out-ended',
+        'recoilpay-purchase-started',
+        'recoilpay-purchase-ended',
+      ];
+      for (const name of events) {
+        document.addEventListener(name, (event) => {
+          if (log.textContent === '(nothing yet)') log.textContent = '';
+          log.textContent = `${new Date().toLocaleTimeString()}  ${name}  ${JSON.stringify(event.detail)}\n` + log.textContent;
+        });
+      }
+    </script>
+  </body>
+</html>

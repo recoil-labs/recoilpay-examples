@@ -1,0 +1,157 @@
+:root {
+  --bg: #0c0d14;
+  --surface: #151724;
+  --line: #262a3d;
+  --ink: #ecedf3;
+  --muted: #9a9db3;
+  --accent: #7c5cff;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(1200px 600px at 70% -10%, #2a1f6b55, transparent), var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+}
+
+a {
+  color: var(--ink);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.02em;
+}
+
+.nav nav {
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 56px 0 72px;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.lede {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  max-width: 34ch;
+}
+
+.hero-widget {
+  display: block;
+}
+
+.how {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding-bottom: 56px;
+}
+
+.how article,
+.events {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.how h2,
+.events h2 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+
+.how p,
+.events p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.events pre {
+  margin: 14px 0 0;
+  padding: 12px;
+  max-height: 220px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 12px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+footer {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 860px) {
+  .hero,
+  .how {
+    grid-template-columns: 1fr;
+  }
+  .hero {
+    padding-top: 24px;
+    gap: 28px;
+  }
+}
+
+/* The component's root, placed in the hero grid. */
+.hero > .rp-root {
+  width: 100%;
+}

@@ -1,0 +1,19 @@
+{
+  "name": "recoilpay-example-sdk-custom-ui",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@recoilpay/intent-core": "^0.5.0",
+    "viem": "^2.57.4"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.3",
+    "vite": "^8.3.4"
+  }
+}

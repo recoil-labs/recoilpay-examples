@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%237c5cff%22/%3E%3C/svg%3E" />
+    <title>Lumen: cash out to your bank</title>
+  </head>
+  <body>
+    <header class="nav">
+      <span class="logo">Lumen</span>
+      <button id="connect" class="button button-quiet" type="button">Connect wallet</button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Example app · testnet · your own UI</p>
+          <h1>Cash out to your bank.</h1>
+          <p class="lede">
+            Every screen here is this app's own HTML. The RecoilPay SDK does the rest: finding the best offer, sealing the bank details for the
+            solver, the escrow, and following the payout.
+          </p>
+        </div>
+
+        <div class="card" id="app">
+          <!-- 1. What to cash out -->
+          <form id="amount-form" class="stack">
+            <h2>What to cash out</h2>
+            <label class="field">
+              <span>From</span>
+              <select id="chain" required></select>
+            </label>
+            <label class="field">
+              <span>Amount (USDC)</span>
+              <input id="amount" inputmode="decimal" value="10" required />
+            </label>
+            <button class="button" type="submit">See the offer</button>
+          </form>
+
+          <!-- 2. The offer and the bank details -->
+          <form id="bank-form" class="stack" hidden>
+            <h2>Your bank</h2>
+            <p id="offer" class="offer"></p>
+            <label class="field">
+              <span>Bank</span>
+              <select id="bank" required><option value="">Choose your bank</option></select>
+            </label>
+            <label class="field">
+              <span>Account number (NUBAN)</span>
+              <input id="account" inputmode="numeric" autocomplete="off" maxlength="10" required />
+            </label>
+            <label class="field">
+              <span>Name on the account</span>
+              <input id="name" autocomplete="name" required />
+            </label>
+            <p class="fineprint">Encrypted on this device for the one solver who pays you. Neither this app nor RecoilPay sees it.</p>
+            <p id="bank-error" class="error" hidden></p>
+            <div class="row">
+              <button id="cash-out" class="button" type="submit">Cash out</button>
+              <button id="cancel" class="button button-quiet" type="button">Cancel</button>
+            </div>
+          </form>
+
+          <!-- 3. Following the trade -->
+          <div id="progress" class="stack" hidden>
+            <h2 id="progress-title">Cash-out</h2>
+            <p id="status" class="status"></p>
+            <div id="answer" class="row" hidden>
+              <button id="received" class="button" type="button">I received it</button>
+              <button id="not-arrived" class="button button-quiet" type="button">It hasn't arrived</button>
+            </div>
+            <form id="dispute-form" class="stack" hidden>
+              <label class="field">
+                <span>What happened?</span>
+                <input id="reason" placeholder="Nothing arrived in my account" required />
+              </label>
+              <div class="row">
+                <button class="button button-danger" type="submit">Open a dispute</button>
+                <button id="dispute-cancel" class="button button-quiet" type="button">Back</button>
+              </div>
+            </form>
+            <dl id="receipt" class="receipt" hidden></dl>
+            <button id="again" class="button button-quiet" type="button" hidden>Cash out again</button>
+          </div>
+
+          <p id="message" class="error" hidden></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>Example only. Testnet USDC has no value; the bank transfer can be real naira. Built with <a href="https://docs.recoilpay.com">RecoilPay</a>.</footer>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
