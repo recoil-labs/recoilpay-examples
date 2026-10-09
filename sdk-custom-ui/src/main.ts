@@ -91,7 +91,7 @@ function render(state: OfframpState) {
   $('progress-title').textContent = state.trade ? `Cash-out ${state.preview?.currencySymbol ?? ''}${state.preview?.receiveAmount ?? ''}`.trim() : 'Cash-out';
   const answering = state.phase === 'awaitingConfirmation';
   if (answering && state.preview) $('received').textContent = `I received ${state.preview.currencySymbol}${state.preview.receiveAmount}`;
-  show('answer', answering && $('dispute-form').hidden);
+  show('answer', answering && $('dispute-form').hidden === true);
   if (!answering) show('dispute-form', false);
 
   const done = state.phase === 'settled' || state.phase === 'refunded' || state.phase === 'failed';
